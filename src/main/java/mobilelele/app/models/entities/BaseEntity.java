@@ -19,8 +19,19 @@ public abstract class BaseEntity {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        setCreated(Instant.now());
+        setUpdated(Instant.now());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        setUpdated(Instant.now());
     }
 
     @Column(nullable = false)
@@ -39,14 +50,5 @@ public abstract class BaseEntity {
 
     public void setUpdated(Instant updated) {
         this.updated = updated;
-    }
-
-    @Override
-    public String   toString() {
-        return "BaseEntity{" +
-                "id=" + id +
-                ", created=" + created +
-                ", updated=" + updated +
-                '}';
     }
 }

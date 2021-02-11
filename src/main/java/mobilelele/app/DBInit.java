@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -39,11 +38,9 @@ public class DBInit implements CommandLineRunner {
 
 //        Brand fordBrand = new Brand();
 //        fordBrand.setName("Ford");
-//        setCurrentTimestamps(fordBrand);
 //
 //        Brand hondaBrand = new Brand();
 //        hondaBrand.setName("Honda");
-//        setCurrentTimestamps(hondaBrand);
 //
 //        brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 //
@@ -58,11 +55,9 @@ public class DBInit implements CommandLineRunner {
     private void initUser() {
         UserRole adminRole = new UserRole();
         adminRole.setRole(Role.Admin);
-        setCurrentTimestamps(adminRole);
 
         UserRole userRole = new UserRole();
         userRole.setRole(Role.User);
-        setCurrentTimestamps(userRole);
 
         userRoleRepository.saveAll(List.of(adminRole, userRole));
 
@@ -73,7 +68,6 @@ public class DBInit implements CommandLineRunner {
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("123456"));
         admin.setUserRoles(List.of(adminRole, userRole));
-        setCurrentTimestamps(admin);
 
         User kosi = new User();
 
@@ -82,7 +76,6 @@ public class DBInit implements CommandLineRunner {
         kosi.setUsername("kosi");
         kosi.setPassword(passwordEncoder.encode("123456"));
         kosi.setUserRoles(List.of(userRole));
-        setCurrentTimestamps(kosi);
 
         userRepository.saveAll(List.of(admin, kosi));
     }
@@ -95,10 +88,9 @@ public class DBInit implements CommandLineRunner {
         fiestaOffer.setMileage(40000);
         fiestaOffer.setPrice(10000);
         fiestaOffer.setYear(2019);
-        fiestaOffer.setText("Karana e ot nemska baba. Zimata v garaj.");
+        fiestaOffer.setDescription("Karana e ot nemska baba. Zimata v garaj.");
         fiestaOffer.setTransmission(Transmission.MANUAL);
         fiestaOffer.setModel(modelEntity);
-        setCurrentTimestamps(fiestaOffer);
 
         offerRepository.save(fiestaOffer);
     }
@@ -111,10 +103,9 @@ public class DBInit implements CommandLineRunner {
         nc750sOffer.setMileage(1500);
         nc750sOffer.setPrice(18500);
         nc750sOffer.setYear(2018);
-        nc750sOffer.setText("Close to new always keep it in garage.");
+        nc750sOffer.setDescription("Close to new always keep it in garage.");
         nc750sOffer.setTransmission(Transmission.MANUAL);
         nc750sOffer.setModel(model);
-        setCurrentTimestamps(nc750sOffer);
 
         offerRepository.save(nc750sOffer);
     }
@@ -127,7 +118,6 @@ public class DBInit implements CommandLineRunner {
         nc750s.setImageUrl("https://www.mitchellsmc.co.uk/wp-content/uploads/2020/07/IMG_0686.jpg");
         nc750s.setStartYear(2014);
         nc750s.setBrand(hondaBrand);
-        setCurrentTimestamps(nc750s);
 
         return modelRepository.save(nc750s);
     }
@@ -140,13 +130,7 @@ public class DBInit implements CommandLineRunner {
         fiesta.setImageUrl("https://s1.cdn.autoevolution.com/images/gallery/FORDFiesta5Doors-2792_1.jpg");
         fiesta.setStartYear(1989);
         fiesta.setBrand(fordBrand);
-        setCurrentTimestamps(fiesta);
 
         return modelRepository.save(fiesta);
-    }
-
-    private static void setCurrentTimestamps(BaseEntity baseEntity) {
-        baseEntity.setCreated(Instant.now());
-        baseEntity.setUpdated(Instant.now());
     }
 }

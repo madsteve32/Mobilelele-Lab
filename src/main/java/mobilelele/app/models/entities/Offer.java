@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    private String text;
+    private String description;
     private Engine engine;
     private String imageUrl;
     private int mileage;
     private double price;
     private Transmission transmission;
     private int year;
-    private Instant created;
     private LocalDateTime modified;
     private Model model;
     private User seller;
@@ -28,12 +27,12 @@ public class Offer extends BaseEntity {
 
     @Column
     @Lob
-    public String getText() {
-        return text;
+    public String getDescription() {
+        return description;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDescription(String text) {
+        this.description = text;
     }
 
     @Enumerated(EnumType.STRING)
@@ -88,15 +87,6 @@ public class Offer extends BaseEntity {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    @Column
-    public Instant getCreated() {
-        return created;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
     }
 
     @Column

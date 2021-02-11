@@ -45,13 +45,13 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("userRegisterServiceModel", userRegisterServiceModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterServiceModel", bindingResult);
 
-            return "redirect:/users/register";
+            return "redirect:/register";
         }
 
 
 
         userService.registerUser(userRegisterServiceModel);
 
-        return "redirect:/users/login";
+        return "redirect:/login";
     }
 }
