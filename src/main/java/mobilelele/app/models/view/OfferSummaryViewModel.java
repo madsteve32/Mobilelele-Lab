@@ -6,6 +6,7 @@ import mobilelele.app.models.entities.enums.Transmission;
 
 public class OfferSummaryViewModel {
 
+    private long id;
     private Engine engine;
     private String imageUrl;
     private int mileage;
@@ -17,6 +18,15 @@ public class OfferSummaryViewModel {
 
     public Engine getEngine() {
         return engine;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public OfferSummaryViewModel setId(long id) {
+        this.id = id;
+        return this;
     }
 
     public OfferSummaryViewModel setEngine(Engine engine) {

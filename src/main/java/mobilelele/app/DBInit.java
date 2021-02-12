@@ -36,6 +36,13 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+//        Brand suzukiBrand = new Brand();
+//        suzukiBrand.setName("Suzuki");
+//
+//        brandRepository.save(suzukiBrand);
+//
+//        Model suzukiGSXR = initGSXR(suzukiBrand);
+
 //        Brand fordBrand = new Brand();
 //        fordBrand.setName("Ford");
 //
@@ -80,35 +87,19 @@ public class DBInit implements CommandLineRunner {
         userRepository.saveAll(List.of(admin, kosi));
     }
 
-    private void createFiestaOffer(Model modelEntity) {
-        Offer fiestaOffer = new Offer();
+    private Model initGSXR(Brand suzukiBrand) {
+        Model gsxr = new Model();
 
-        fiestaOffer.setEngine(Engine.GASOLINE);
-        fiestaOffer.setImageUrl("https://media.autoexpress.co.uk/image/private/s--7btEt2wi--/v1562244788/autoexpress/2017/07/dsc_1328-1.jpg");
-        fiestaOffer.setMileage(40000);
-        fiestaOffer.setPrice(10000);
-        fiestaOffer.setYear(2019);
-        fiestaOffer.setDescription("Karana e ot nemska baba. Zimata v garaj.");
-        fiestaOffer.setTransmission(Transmission.MANUAL);
-        fiestaOffer.setModel(modelEntity);
+        gsxr.setName("GSXR");
+        gsxr.setCategory(Category.Motorcycle);
+        gsxr.setImageUrl("https://i.pinimg.com/originals/c3/52/e0/c352e013199702b3ab7ce083aab7227d.jpg");
+        gsxr.setStartYear(2006);
+        gsxr.setBrand(suzukiBrand);
 
-        offerRepository.save(fiestaOffer);
+        return modelRepository.save(gsxr);
     }
 
-    private void createNC750SOffer(Model model) {
-        Offer nc750sOffer = new Offer();
 
-        nc750sOffer.setEngine(Engine.GASOLINE);
-        nc750sOffer.setImageUrl("https://bikez.com/pictures/large.php?image=../pictures/honda/2018/49239_0_1_4_nc750s_Image%20credits%20-%20Honda.jpg");
-        nc750sOffer.setMileage(1500);
-        nc750sOffer.setPrice(18500);
-        nc750sOffer.setYear(2018);
-        nc750sOffer.setDescription("Close to new always keep it in garage.");
-        nc750sOffer.setTransmission(Transmission.MANUAL);
-        nc750sOffer.setModel(model);
-
-        offerRepository.save(nc750sOffer);
-    }
 
     private Model initNC750S(Brand hondaBrand) {
         Model nc750s = new Model();

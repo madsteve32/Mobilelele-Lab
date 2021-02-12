@@ -34,17 +34,6 @@ public class OffersController {
         return "offers";
     }
 
-    @GetMapping("/{id}")
-    public String offerDetails(Model model, @PathVariable long id) {
-        OfferDetailsViewModel offerDetailsViewModel = offerService
-                .getOfferDetails(id)
-                .orElseThrow();
-
-        model.addAttribute("offer", offerDetailsViewModel);
-
-        return "details";
-    }
-
     @ModelAttribute("offerServiceModel")
     public OfferServiceModel offerServiceModel() {
         return new OfferServiceModel();
@@ -74,5 +63,21 @@ public class OffersController {
         offerService.save(offerServiceModel);
 
         return "redirect:/offers/all";
+    }
+
+    @GetMapping("/{id}")
+    public String offerDetails(Model model, @PathVariable long id) {
+        OfferDetailsViewModel offerDetailsViewModel = offerService
+                .getOfferDetails(id)
+                .orElseThrow();
+
+        model.addAttribute("offer", offerDetailsViewModel);
+
+        return "details";
+    }
+
+    @GetMapping("/update")
+    public String update() {
+        return "update";
     }
 }

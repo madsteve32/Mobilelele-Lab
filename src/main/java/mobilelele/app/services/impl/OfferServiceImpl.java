@@ -47,6 +47,9 @@ public class OfferServiceImpl implements OfferService {
         offers.forEach(offer -> {
             OfferSummaryViewModel offerSummaryViewModel = new OfferSummaryViewModel();
             modelMapper.map(offer, offerSummaryViewModel);
+            offerSummaryViewModel.setBrand(offer.getModel().getBrand().getName());
+            offerSummaryViewModel.setModel(offer.getModel().getName());
+
             result.add(offerSummaryViewModel);
         });
 
@@ -56,7 +59,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Optional<OfferDetailsViewModel> getOfferDetails(long id) {
         return offerRepository.findById(id)
-                .map(OfferServiceImpl::mapToDetails);
+                .map(this::mapToDetails);
     }
 
     @Override
@@ -79,13 +82,6 @@ public class OfferServiceImpl implements OfferService {
         return offer;
     }
 
-    private static OfferSummaryViewModel mapToSummary(Offer offer) {
-        OfferSummaryViewModel offerModel =new OfferSummaryViewModel();
-        mapToSummary(offer, offerModel);
-
-        return offerModel;
-    }
-
     private static void mapToSummary(Offer offer, OfferSummaryViewModel offerModel) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(offer, offerModel);
@@ -93,9 +89,13 @@ public class OfferServiceImpl implements OfferService {
         offerModel.setBrand(offer.getModel().getBrand().getName());
     }
 
-    private static OfferDetailsViewModel mapToDetails(Offer offer) {
+    private OfferDetailsViewModel mapToDetails(Offer offer) {
         OfferDetailsViewModel offerModel = new OfferDetailsViewModel();
         mapToSummary(offer, offerModel);
+        offerModel
+                .setSellerFirstName(offer.getSeller().getFirstName())
+                .setSellerLastName(offer.getSeller().getLastName())
+                .setEditable(currentUser.isAdmin() || offer.getSeller().getUsername().equals(currentUser.getName()));
 
         return offerModel;
     }
